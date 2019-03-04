@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.utransparency.model.ProgresiveTypeProgresive;
 import com.utransparency.model.Progresivet;
 import com.utransparency.model.TypeProgresive;
 import com.utransparency.model.User;
@@ -60,7 +61,7 @@ public class UserUtilsController {
 	 }
 	 
 	 @ModelAttribute("progresivetRow")
-	 public List<Progresivet> progresivetRow() {
+	 public List<ProgresiveTypeProgresive> progresivetRow() {
 	     return progresiveServiceImpl.joinProgresive();
 	 }
 
