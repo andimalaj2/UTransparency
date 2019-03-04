@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>	
+	
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/sidebar.css"/>
+	
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+
+<!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!-- <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+
+	
+</head>
+
+<body>
+
+	<header>
+	
+		<div th:replace="/fragments/header :: header_template"></div>
+	
+	</header>
+
+	<div class="container-fluid">
+
+		
+		<div class="row">
+				<div class="col-md pl-0" >
+					<div th:replace="/fragments/admin_sidebar :: admin_sidebar"  ></div>
+				</div>
+				<div class="col-md my-3">
+					<p> Home page i Administratorit </p>
+				</div>
+	 	</div>
+
+	</div>
+	
+	<footer>
+		
+		 <div th:replace="/fragments/footer :: footer_template"></div>
+	
+	</footer>
+	
+	 
+	
+
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>	
+	
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/sidebar.css"/>
+	
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+
+<!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!-- <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+
+	
+</head>
+
+<body>
+
+	<header>
+	
+		<div th:replace="/fragments/header :: header_template"></div>
+	
+	</header>
+
+	<div class="container-fluid">
+
+		
+		<div class="row">
+				<div class="col-md pl-0" >
+					<div th:replace="/fragments/admin_sidebar :: admin_sidebar"  ></div>
+				</div>
+				<div class="col-md my-3">
+					<p> Faqja e ngarkimit te progresiveve </p>
+				</div>
+							
+	 	</div>
+
+	</div>
+	
+	<main class="page-content">
+	
+		<form class="form-horizontal" role="form" method="POST" th:action="@{/uploadProgres}" >
+	
+		<div class ="container-fluid">
+		
+			<div class="form-group row">
+			  <label for="example-month-input" class="col-2 col-form-label">Muaji</label>
+			  <div class="col-3">
+			    <input class="form-control" type="month" value="2019-03" id="example-month-input">
+			    
+			  </div>
+			  <button type="submit" class="btn btn-primary float-right">Ruaj</button>
+			  
+			</div>
+		
+			<div class= "form-group row">
+			 			<table class = "table table-bordered table-sm">
+					    	<thead class="thead-light">
+					    		<th colspan="3" class="text-center">Te ardhurat per muajin </th>
+						        <tr>
+						            <th> Emertimi </th>
+						            <th> Plan </th>
+						            <th> Fakt </th>
+						        </tr>
+					        </thead>
+						    
+						    <tbody>
+						        <tr th:each="progresivetRows : ${progresivetRow}">
+						            <td><span th:text="${progresivetRows.name}"> Emertimi </span></td>
+						            <td><span  contenteditable></span></td>
+						            <td><span  contenteditable></span></td>
+						        </tr>
+						    </tbody>
+						</table>	
+		 	</div>
+			<div class= "form-group row">
+	 			<table class = "table table-bordered table-sm">
+			    	<thead class="thead-light">
+			    		<th colspan="3" class="text-center">Shpenzimet nga Granti i Buxhetit te shtetit per muajin</th>
+				        <tr>
+				            <th> Emertimi </th>
+				            <th> Plan </th>
+				            <th> Fakt </th>
+				        </tr>
+			        </thead>
+				    
+				    <tbody>
+				        <tr th:each="listaProgresive : ${typeProgresivet}">
+				            <td><span th:text="${listaProgresive.name}"> Emertimi </span></td>
+				            <td><span  contenteditable></span></td>
+				            <td><span  contenteditable></span></td>
+				        </tr>
+				    </tbody>
+				</table>	
+		 	</div>
+			 	
+		
+		 </div>
+		 
+		 </form>
+		 
+	 </main>
+		 
+	
+	<footer>
+		
+		 <div th:replace="/fragments/footer :: footer_template"></div>
+	
+	</footer>
+	
+	 
+	
+
+</body>
+
+</html>
