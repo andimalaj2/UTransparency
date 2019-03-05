@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.utransparency.model.Progresivet;
 import com.utransparency.model.TypeProgresive;
-import com.utransparency.model.User;
 import com.utransparency.service.ProgresiveServiceImpl;
 import com.utransparency.service.TypeProgresiveServiceImpl;
 
@@ -35,8 +34,17 @@ public class UserUtilsController {
 	 public ModelAndView login() {
 	  ModelAndView model = new ModelAndView();
 	  Progresivet progresivet = new Progresivet();
-	  TypeProgresive typeProgresive = new TypeProgresive();
-	 // progresivet.setTypeProgresive(typeProgresive);
+	  //TypeProgresive typeProgresive = new TypeProgresive();
+	  
+	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
+	  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
+	  for (int i = 0; i < typeProgresive.size(); i++) {
+		  Map<Integer,String> hashTemp = new HashMap();
+		  hashTemp.put(typeProgresive.get(i).getTypeprogresiveId(),  typeProgresive.get(i).getName());
+		  progresiveHash.put(hashTemp, null);
+	  }
+	  
+	  model.addObject("progresiveHash",progresiveHash);
 	  model.addObject("progresivet",progresivet);
 	  model.addObject("typeProgresive",typeProgresive);
 	  model.setViewName("uploadProgres");
@@ -48,21 +56,21 @@ public class UserUtilsController {
 	// public ModelAndView upload(@Valid Integer universityid,@Valid Date date, @Valid HashMap<TypeProgresive,Integer> progresiveHash,  BindingResult bindingResult) {
 	  ModelAndView model = new ModelAndView();
 	  
-	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
-	  Map<Integer,Integer> progresiveHash1 = new HashMap();
-	  Date referedDate = new Date();
-	  
-	  for (int i = 0; i < typeProgresive.size(); i++) {
-		  progresiveHash1.put(typeProgresive.get(i).getTypeprogresiveId(), i+100);
-	  }
-	  
-		for (Map.Entry<Integer, Integer> entry : progresiveHash1.entrySet() ) {
-			Progresivet progresivet = new Progresivet();
-			progresivet.setTypeProgresiveId(entry.getKey());
-			progresivet.setTypeMount(entry.getValue());
-			progresivet.setReferedDate(referedDate);
-			progresiveServiceImpl.saveProgresivet(progresivet);    
-		}
+//	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
+//	  Map<Integer,Integer> progresiveHash1 = new HashMap();
+//	  Date referedDate = new Date();
+//	  
+//	  for (int i = 0; i < typeProgresive.size(); i++) {
+//		  progresiveHash1.put(typeProgresive.get(i).getTypeprogresiveId(), i+100);
+//	  }
+//	  
+//		for (Map.Entry<Integer, Integer> entry : progresiveHash1.entrySet() ) {
+//			Progresivet progresivet = new Progresivet();
+//			progresivet.setTypeProgresiveId(entry.getKey());
+//			progresivet.setTypeMount(entry.getValue());
+//			progresivet.setReferedDate(referedDate);
+//			progresiveServiceImpl.saveProgresivet(progresivet);    
+//		}
 	  	  
 	  
 	  if(bindingResult.hasErrors()) {
@@ -82,9 +90,9 @@ public class UserUtilsController {
 	     return typeProgresiveServiceImpl.findAll();
 	 }
 	 
-	 @ModelAttribute("progresivetRow")
-	 public List<Progresivet> progresivetRow() {
-	     return progresiveServiceImpl.joinProgresive();
-	 }
+//	 @ModelAttribute("progresivetRow")
+//	 public List<Progresivet> progresivetRow() {
+//	     return progresiveServiceImpl.joinProgresive();
+//	 }
 
 }
