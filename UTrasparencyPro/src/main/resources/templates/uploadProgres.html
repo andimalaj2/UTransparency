@@ -75,8 +75,8 @@
 					        </thead>
 						    
 						    <tbody>
-						        <tr th:each="progresivetRows : ${progresivetRow}">
-						            <td><span th:text="${progresivetRows.name}"> Emertimi </span></td>
+				        		<tr th:each="listaProgresive : ${typeProgresivet}">
+			           			    <td><span th:text="${listaProgresive.name}"> Emertimi </span></td>
 						            <td><span  contenteditable></span></td>
 						            <td><span  contenteditable></span></td>
 						        </tr>

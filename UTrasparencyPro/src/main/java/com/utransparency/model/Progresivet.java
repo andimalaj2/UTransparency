@@ -1,7 +1,9 @@
 package com.utransparency.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="progresivet")
@@ -26,11 +29,16 @@ public class Progresivet {
 	@Column(name = "progresivet_id")
 	private int progresivetID;
 	
+	
 	@Column(name = "mount")
 	private float mount;
 	
+	
+	
+	
 	@Column(name = "refered_date")
 	private Date referedDate;
+	
 	
 	@Column(name = "type_mount")
 	private int typeMount;
@@ -39,20 +47,21 @@ public class Progresivet {
 	private int universityId;
 	
 	
-//	@Column(name = "typeprogresive_id")
-//	private int typeProgresiveId;
+
 	
 	@Column(name ="confirm")
 	private Boolean confirm;
 	
 	
 	
-	  @ManyToOne(fetch = FetchType.LAZY)
-	  @JoinColumn(name = "typeprogresive_id") 
-	  private TypeProgresive typeprogresivet;
-	  
-	  
+//	  @ManyToOne(cascade=CascadeType.ALL)
+//	  @JoinColumn(name = "typeprogresive_id", referencedColumnName ="typeprogresive_id") 
+//	  private TypeProgresive typeprogresive;
+//	
+	@Column(name ="typeprogresive_id")
+	private int typeprogresiveid;
 	 
+	  
 
 	public int getProgresivetID() {
 		return progresivetID;
@@ -94,13 +103,13 @@ public class Progresivet {
 		this.universityId = universityId;
 	}
 
-//	public int getTypeProgresiveId() {
-//		return typeProgresiveId;
-//	}
-//
-//	public void setTypeProgresiveId(int typeProgresiveId) {
-//		this.typeProgresiveId = typeProgresiveId;
-//	}
+	public int getTypeProgresiveId() {
+		return typeprogresiveid;
+	}
+
+	public void setTypeProgresiveId(int typeProgresiveId) {
+		this.typeprogresiveid = typeProgresiveId;
+	}
 
 	public Boolean getConfirm() {
 		return confirm;
@@ -109,5 +118,16 @@ public class Progresivet {
 	public void setConfirm(Boolean confirm) {
 		this.confirm = confirm;
 	}
+	
+//	public Progresivet setTypeProgresive(TypeProgresive typeProgresive) {
+//		this.typeprogresive = typeProgresive;
+//		
+//		return this;
+//	}
+	
+//	public void setTypeProgresive(TypeProgresive typeProgresive) {
+//		
+//		this.typeprogresive = typeProgresive;
+//	}
 
 }

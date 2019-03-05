@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.utransparency.model.ProgresiveTypeProgresive;
+
 import com.utransparency.model.Progresivet;
 import com.utransparency.repository.ProgresiveRepository;
 
@@ -21,7 +21,7 @@ public class ProgresiveServiceImpl {
 		
 	}
 	
-	public List<ProgresiveTypeProgresive> joinProgresive(){
+	public List<Progresivet> joinProgresive(){
 		
 		
 		return progresiveRepository.joinProgresive();
