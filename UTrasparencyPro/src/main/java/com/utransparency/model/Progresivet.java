@@ -118,6 +118,8 @@ public class Progresivet {
 	public void setConfirm(Boolean confirm) {
 		this.confirm = confirm;
 	}
+
+
 	
 //	public Progresivet setTypeProgresive(TypeProgresive typeProgresive) {
 //		this.typeprogresive = typeProgresive;

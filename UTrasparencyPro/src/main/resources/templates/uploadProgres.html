@@ -49,7 +49,7 @@
 	
 	<main class="page-content">
 	
-		<form class="form-horizontal" role="form" method="POST" th:action="@{/uploadProgres}" >
+		<form class="form-horizontal" role="form" method="POST" th:action="@{/uploadProgres}">
 	
 		<div class ="container-fluid">
 		
@@ -75,10 +75,11 @@
 					        </thead>
 						    
 						    <tbody>
-				        		<tr th:each="listaProgresive : ${typeProgresivet}">
-			           			    <td><span th:text="${listaProgresive.name}"> Emertimi </span></td>
-						            <td><span  contenteditable></span></td>
-						            <td><span  contenteditable></span></td>
+				        		<tr th:each="listaProgresive,rowStat : *{progresiveHash}">
+				           			    <td><span  th:text="*{listaProgresive.key}" ></span></td>
+							            <td><input type="number" th:field="*{progresiveHash}" /></td>
+							            <td><input type="number" th:field="*{progresiveHash}" /></td>
+						            </tr>
 						        </tr>
 						    </tbody>
 						</table>	

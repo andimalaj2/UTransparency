@@ -52,8 +52,8 @@ public class UserUtilsController {
 	 }
 	 
 	 @RequestMapping(value= { "/uploadProgres"}, method=RequestMethod.POST)
-	 public ModelAndView upload(@Valid Progresivet progresive,  BindingResult bindingResult) {
-	// public ModelAndView upload(@Valid Integer universityid,@Valid Date date, @Valid HashMap<TypeProgresive,Integer> progresiveHash,  BindingResult bindingResult) {
+	 public ModelAndView upload(@Valid Progresivet progresive,@ModelAttribute("progresiveHash") Map<Map<Integer,String>,Integer> progresiveHash, BindingResult bindingResult) {
+	// public ModelAndView upload(@Valid Integer universityid,@Valid Date date, @ModelAttribute("progresiveHash") Map<Map<Integer,String>,Integer> progresiveHash,  BindingResult bindingResult) {
 	  ModelAndView model = new ModelAndView();
 	  
 //	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
@@ -71,7 +71,21 @@ public class UserUtilsController {
 //			progresivet.setReferedDate(referedDate);
 //			progresiveServiceImpl.saveProgresivet(progresivet);    
 //		}
-	  	  
+	  
+//	  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
+//	  model.addObject("progresiveHash",progresiveHash);
+	  
+	  
+		for (Map.Entry<Map<Integer,String>, Integer> entry : progresiveHash.entrySet() ) {
+			Progresivet progresivet = new Progresivet();
+			Map<Integer,String> progresiveHash1 = new HashMap();
+			progresiveHash1.put(key, value)
+			progresivet.setTypeProgresiveId( progresiveHash1);
+			progresivet.setTypeMount(entry.getValue());
+			progresivet.setReferedDate(null);
+			progresiveServiceImpl.saveProgresivet(progresivet);    
+	}
+	  
 	  
 	  if(bindingResult.hasErrors()) {
 		   model.setViewName("/uploadProgres");
@@ -94,5 +108,21 @@ public class UserUtilsController {
 //	 public List<Progresivet> progresivetRow() {
 //	     return progresiveServiceImpl.joinProgresive();
 //	 }
+	 
+	 
+	 @ModelAttribute("progresiveHash")
+	 public Map<Map<Integer,String>,Integer> progresiveHash() {
+		 
+		 List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
+		  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
+		  for (int i = 0; i < typeProgresive.size(); i++) {
+			  Map<Integer,String> hashTemp = new HashMap();
+			  hashTemp.put(typeProgresive.get(i).getTypeprogresiveId(),  typeProgresive.get(i).getName());
+			  progresiveHash.put(hashTemp, null);
+		  }
+	     return progresiveHash;
+	 }
+	 
+	 
 
 }
