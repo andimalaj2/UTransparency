@@ -75,12 +75,12 @@
 					        </thead>
 						    
 						    <tbody>
-				        		<tr th:each="listaProgresive,rowStat : *{progresiveHash}">
-				           			    <td><span  th:text="*{listaProgresive.key}" ></span></td>
-							            <td><input type="number" th:field="*{progresiveHash}" /></td>
-							            <td><input type="number" th:field="*{progresiveHash}" /></td>
-						            </tr>
-						        </tr>
+				        		<tr th:each="listaProgresive,rowStat : *{virtualProgresiveList}">
+				           			    <td><span  th:text="*{listaProgresive.name}" ></span></td>
+							            <td><input type="number" th:field="*{virtualProgresiveList}" /></td>
+							            <td><input type="number" th:field="*{virtualProgresiveList}" /></td>
+<!-- 							            <td><input type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].mountFakt}" /></td> -->
+						          </tr>
 						    </tbody>
 						</table>	
 		 	</div>
@@ -96,7 +96,7 @@
 			        </thead>
 				    
 				    <tbody>
-				        <tr th:each="listaProgresive : ${typeProgresivet}">
+				        <tr th:each="listaProgresive : ${typeProgresive}">
 				            <td><span th:text="${listaProgresive.name}"> Emertimi </span></td>
 				            <td><span  contenteditable></span></td>
 				            <td><span  contenteditable></span></td>

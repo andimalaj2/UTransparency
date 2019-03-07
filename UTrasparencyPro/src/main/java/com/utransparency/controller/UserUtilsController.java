@@ -1,5 +1,6 @@
 package com.utransparency.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.utransparency.model.Progresivet;
 import com.utransparency.model.TypeProgresive;
+import com.utransparency.model.VirtualProgresive;
 import com.utransparency.service.ProgresiveServiceImpl;
 import com.utransparency.service.TypeProgresiveServiceImpl;
 
@@ -33,26 +35,34 @@ public class UserUtilsController {
 	 @RequestMapping(value= { "/uploadProgres"}, method=RequestMethod.GET)
 	 public ModelAndView login() {
 	  ModelAndView model = new ModelAndView();
-	  Progresivet progresivet = new Progresivet();
+//	  Progresivet progresivet = new Progresivet();
 	  //TypeProgresive typeProgresive = new TypeProgresive();
 	  
 	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
-	  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
-	  for (int i = 0; i < typeProgresive.size(); i++) {
-		  Map<Integer,String> hashTemp = new HashMap();
-		  hashTemp.put(typeProgresive.get(i).getTypeprogresiveId(),  typeProgresive.get(i).getName());
-		  progresiveHash.put(hashTemp, null);
+//	  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
+//	  for (int i = 0; i < typeProgresive.size(); i++) {
+//		  Map<Integer,String> hashTemp = new HashMap();
+//		  hashTemp.put(typeProgresive.get(i).getTypeprogresiveId(),  typeProgresive.get(i).getName());
+//		  progresiveHash.put(hashTemp, null);
+//	  }
+	  List<VirtualProgresive> virtualProgresiveList = new ArrayList<>();  
+	  for(int i = 0; i < typeProgresive.size(); i++) {
+		  VirtualProgresive virtualProgresive = new VirtualProgresive();
+		  virtualProgresive.setIdTypeProgresive(typeProgresive.get(i).getTypeprogresiveId());
+		  virtualProgresive.setName(typeProgresive.get(i).getName());
+		  virtualProgresiveList.add(virtualProgresive);
 	  }
 	  
-	  model.addObject("progresiveHash",progresiveHash);
-	  model.addObject("progresivet",progresivet);
+	  
+	  model.addObject("virtualProgresiveList",virtualProgresiveList);
+//	  model.addObject("progresivet",progresivet);
 	  model.addObject("typeProgresive",typeProgresive);
 	  model.setViewName("uploadProgres");
 	  return model;
 	 }
 	 
 	 @RequestMapping(value= { "/uploadProgres"}, method=RequestMethod.POST)
-	 public ModelAndView upload(@Valid Progresivet progresive,@ModelAttribute("progresiveHash") Map<Map<Integer,String>,Integer> progresiveHash, BindingResult bindingResult) {
+	 public ModelAndView upload(@Valid List<VirtualProgresive> virtualProgresiveList, BindingResult bindingResult) {
 	// public ModelAndView upload(@Valid Integer universityid,@Valid Date date, @ModelAttribute("progresiveHash") Map<Map<Integer,String>,Integer> progresiveHash,  BindingResult bindingResult) {
 	  ModelAndView model = new ModelAndView();
 	  
@@ -76,15 +86,34 @@ public class UserUtilsController {
 //	  model.addObject("progresiveHash",progresiveHash);
 	  
 	  
-		for (Map.Entry<Map<Integer,String>, Integer> entry : progresiveHash.entrySet() ) {
+//		for (Map.Entry<Map<Integer,String>, Integer> entry : progresiveHash.entrySet() ) {
+//			Progresivet progresivet = new Progresivet();
+//
+//			progresivet.setTypeProgresiveId( 1);
+//			progresivet.setTypeMount(entry.getValue());
+//			progresivet.setReferedDate(null);
+//			progresiveServiceImpl.saveProgresivet(progresivet);    
+//	}
+	  
+	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
+	  List<VirtualProgresive> virtualProgresiveListT = new ArrayList<>();  
+	  for(int i = 0; i < typeProgresive.size(); i++) {
+		  VirtualProgresive virtualProgresive = new VirtualProgresive();
+		  virtualProgresive.setIdTypeProgresive(typeProgresive.get(i).getTypeprogresiveId());
+		  virtualProgresive.setName(typeProgresive.get(i).getName());
+		  virtualProgresive.setMountFakt(100);
+		  virtualProgresive.setMountPlan(200);
+		  virtualProgresiveListT.add(virtualProgresive);
+	  }
+	  
+	  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
 			Progresivet progresivet = new Progresivet();
-			Map<Integer,String> progresiveHash1 = new HashMap();
-			progresiveHash1.put(key, value)
-			progresivet.setTypeProgresiveId( progresiveHash1);
-			progresivet.setTypeMount(entry.getValue());
-			progresivet.setReferedDate(null);
-			progresiveServiceImpl.saveProgresivet(progresivet);    
-	}
+
+			progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
+			progresivet.setMount(virtualProgresiveListT.get(i).getMountFakt());
+			progresivet.setReferedDate(new Date());
+			progresiveServiceImpl.saveProgresivet(progresivet);  
+	  }
 	  
 	  
 	  if(bindingResult.hasErrors()) {
@@ -99,29 +128,29 @@ public class UserUtilsController {
 	 }
 	 
 	 
-	 @ModelAttribute("typeProgresivet")
-	 public List<TypeProgresive> typeprogresivet() {
-	     return typeProgresiveServiceImpl.findAll();
-	 }
-	 
+//	 @ModelAttribute("typeProgresivet")
+//	 public List<TypeProgresive> typeprogresivet() {
+//	     return typeProgresiveServiceImpl.findAll();
+//	 }
+//	 
 //	 @ModelAttribute("progresivetRow")
 //	 public List<Progresivet> progresivetRow() {
 //	     return progresiveServiceImpl.joinProgresive();
 //	 }
 	 
 	 
-	 @ModelAttribute("progresiveHash")
-	 public Map<Map<Integer,String>,Integer> progresiveHash() {
-		 
-		 List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
-		  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
-		  for (int i = 0; i < typeProgresive.size(); i++) {
-			  Map<Integer,String> hashTemp = new HashMap();
-			  hashTemp.put(typeProgresive.get(i).getTypeprogresiveId(),  typeProgresive.get(i).getName());
-			  progresiveHash.put(hashTemp, null);
-		  }
-	     return progresiveHash;
-	 }
+//	 @ModelAttribute("progresiveHash")
+//	 public Map<Map<Integer,String>,Integer> progresiveHash() {
+//		 
+//		 List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
+//		  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
+//		  for (int i = 0; i < typeProgresive.size(); i++) {
+//			  Map<Integer,String> hashTemp = new HashMap();
+//			  hashTemp.put(typeProgresive.get(i).getTypeprogresiveId(),  typeProgresive.get(i).getName());
+//			  progresiveHash.put(hashTemp, null);
+//		  }
+//	     return progresiveHash;
+//	 }
 	 
 	 
 
