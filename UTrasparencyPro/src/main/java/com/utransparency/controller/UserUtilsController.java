@@ -33,7 +33,7 @@ public class UserUtilsController {
 	private ProgresiveServiceImpl  progresiveServiceImpl;
 	
 	 @RequestMapping(value= { "/uploadProgres"}, method=RequestMethod.GET)
-	 public ModelAndView login() {
+	 public ModelAndView upload() {
 	  ModelAndView model = new ModelAndView();
 //	  Progresivet progresivet = new Progresivet();
 	  //TypeProgresive typeProgresive = new TypeProgresive();
@@ -56,15 +56,19 @@ public class UserUtilsController {
 	  
 	  model.addObject("virtualProgresiveList",virtualProgresiveList);
 //	  model.addObject("progresivet",progresivet);
-	  model.addObject("typeProgresive",typeProgresive);
+//	  model.addObject("typeProgresive",typeProgresive);
+//	  model.addObject("muaji", new Date());
 	  model.setViewName("uploadProgres");
 	  return model;
 	 }
 	 
 	 @RequestMapping(value= { "/uploadProgres"}, method=RequestMethod.POST)
-	 public ModelAndView upload(@Valid List<VirtualProgresive> virtualProgresiveList, BindingResult bindingResult) {
-	// public ModelAndView upload(@Valid Integer universityid,@Valid Date date, @ModelAttribute("progresiveHash") Map<Map<Integer,String>,Integer> progresiveHash,  BindingResult bindingResult) {
-	  ModelAndView model = new ModelAndView();
+	
+	 public ModelAndView uploadPList(@ModelAttribute("virtualProgresiveList") List<VirtualProgresive> virtualProgresiveList) {
+		 //public ModelAndView uploadPList() {
+		 // issue adding BindingResult bindingResult as argument
+		 
+		 ModelAndView model = new ModelAndView();
 	  
 //	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
 //	  Map<Integer,Integer> progresiveHash1 = new HashMap();
@@ -116,15 +120,19 @@ public class UserUtilsController {
 	  }
 	  
 	  
-	  if(bindingResult.hasErrors()) {
-		   model.setViewName("/uploadProgres");
-		  } else {
-			  
-	  	   
-		   model.setViewName("uploadProgres");
-		  }
-		  
-		  return model;
+//	  if(bindingResult.hasErrors()) {
+//		   model.setViewName("/uploadProgres");
+//		  } else {
+//			  
+//	  	   
+//		   model.setViewName("uploadProgres");
+//		  }
+//		  
+//		  return model;
+	  
+	  model.setViewName("uploadProgres");
+	  return model;
+	  
 	 }
 	 
 	 
