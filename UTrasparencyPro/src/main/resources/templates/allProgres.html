@@ -49,21 +49,16 @@
 	
 	<main class="page-content">
 	
-		<form class="form-horizontal" role="form" method="POST" th:action="@{/uploadProgres}" th:object="${progresiveForm}">
 	
 		<div class ="container-fluid">
-		
-			<div class="form-group row">
-			  <label for="example-month-input" class="col-2 col-form-label">Muaji</label>
-			  <div class="col-3">
-			    <input class="form-control" type="month" value="2019-03" id="example-month-input">
-			    
-			  </div>
-			  <button type="submit" class="btn btn-primary float-right">Ruaj</button>
-			  
+			
+			<div class= "row">
+			
+				<a class="btn btn-primary" href="#" th:href="@{/editProgres}" > Modifiko Progresivet </a>
+			
 			</div>
 		
-			<div class= "form-group row">
+			<div class= "row">
 			 			<table class = "table table-bordered table-sm">
 					    	<thead class="thead-light">
 					    		<th colspan="3" class="text-center">Te ardhurat per muajin </th>
@@ -75,39 +70,16 @@
 					        </thead>
 						    
 						    <tbody>
-				        		<tr th:each="progresiveList,rowStat : ${progresiveForm.virtualProgresiveList}">
+				        		<tr th:each="progresiveList : ${virtualProgresiveList}">
 				           			    <td><span  th:text="${progresiveList.name}" ></span></td>
-							            <td><input type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].mountFakt}" /></td>
-							            <td><input type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].mountPlan}" /></td>
+							            <td><span  th:text="${progresiveList.mountPlan}" ></span></td>
+							            <td><span  th:text="${progresiveList.mountFakt}" ></span></td>
 						          </tr>
 						    </tbody>
 						</table>	
-		 	</div>
-			<div class= "form-group row">
-	 			<table class = "table table-bordered table-sm">
-			    	<thead class="thead-light">
-			    		<th colspan="3" class="text-center">Shpenzimet nga Granti i Buxhetit te shtetit per muajin</th>
-				        <tr>
-				            <th> Emertimi </th>
-				            <th> Plan </th>
-				            <th> Fakt </th>
-				        </tr>
-			        </thead>
-				    
-				    <tbody>
-				        <tr th:each="listaProgresive : ${typeProgresive}">
-				            <td><span th:text="${listaProgresive.name}"> Emertimi </span></td>
-				            <td><span  contenteditable></span></td>
-				            <td><span  contenteditable></span></td>
-				        </tr>
-				    </tbody>
-				</table>	
-		 	</div>
-			 	
+		 	</div>	 	
 		
 		 </div>
-		 
-		 </form>
 		 
 	 </main>
 		 
