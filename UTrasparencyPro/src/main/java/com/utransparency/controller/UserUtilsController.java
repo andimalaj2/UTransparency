@@ -75,11 +75,10 @@ public class UserUtilsController {
 
     @PostMapping(value = "/save")
     public String saveProgres(@ModelAttribute VirtualProgresiveListFormViewModel progresiveForm, Model model) {
-    	List<VirtualProgresive> virtualProgresiveListT = progresiveForm.getVirtualProgresiveList();
-  	  
+    	
+    	List<VirtualProgresive> virtualProgresiveListT = progresiveForm.getVirtualProgresiveList(); 	  
 		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
 				Progresivet progresivet = new Progresivet();
-	
 				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
 				progresivet.setMount(virtualProgresiveListT.get(i).getMountFakt());
 				progresivet.setReferedDate(new Date());
