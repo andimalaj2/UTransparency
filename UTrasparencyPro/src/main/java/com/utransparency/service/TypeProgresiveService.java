@@ -7,5 +7,7 @@ import com.utransparency.model.TypeProgresive;
 public interface TypeProgresiveService {
 	
 	public List<TypeProgresive> findAll();
+	
+	public TypeProgresive findById(int idType);
 
 }

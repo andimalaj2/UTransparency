@@ -37,6 +37,29 @@ public class UserUtilsController {
 	private ProgresiveServiceImpl  progresiveServiceImpl;
 	
 	
+    @GetMapping(value = "/dateProgres")
+    public String dateProgres(Model model) {
+    	
+    	Date muaji = new Date();
+    	List<Progresivet> listProgresivet =  progresiveServiceImpl.filterProgresive(muaji);
+    	
+    	List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
+		List<VirtualProgresive> virtualProgresiveList = new ArrayList<VirtualProgresive>();   
+		  for(int i = 0; i < listProgresivet.size(); i++) {
+			  VirtualProgresive virtualProgresive = new VirtualProgresive();
+			  virtualProgresive.setIdProgresive(listProgresivet.get(i).getProgresivetID());
+			  virtualProgresive.setIdTypeProgresive(listProgresivet.get(i).getTypeProgresiveId());
+			  virtualProgresive.setName(typeProgresiveServiceImpl.findById(listProgresivet.get(i).getTypeProgresiveId()).getName());
+			  
+			  virtualProgresiveList.add(virtualProgresive);
+		  }
+    	
+		  model.addAttribute("virtualProgresiveList", virtualProgresiveList);
+
+        return "dateProgres";
+    }
+	
+	
     @GetMapping(value = "/allProgres")
     public String showAll(Model model) {
     	
@@ -80,7 +103,17 @@ public class UserUtilsController {
 		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
 				Progresivet progresivet = new Progresivet();
 				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
+				progresivet.setMount(virtualProgresiveListT.get(i).getMountPlan());
+				progresivet.setTypeMount(1);
+				progresivet.setReferedDate(new Date());
+				progresiveServiceImpl.saveProgresivet(progresivet);  
+		  }
+		  
+		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
+				Progresivet progresivet = new Progresivet();
+				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
 				progresivet.setMount(virtualProgresiveListT.get(i).getMountFakt());
+				progresivet.setTypeMount(2);
 				progresivet.setReferedDate(new Date());
 				progresiveServiceImpl.saveProgresivet(progresivet);  
 		  }
@@ -89,112 +122,6 @@ public class UserUtilsController {
 
         return "redirect:/allProgres";
     }
-    
-    
-    
-    
-    
-	
-	
-	
-	
-	 @RequestMapping(value= { "/uploadProgres"}, method=RequestMethod.GET)
-	 public ModelAndView upload() {
-		  ModelAndView model = new ModelAndView();
-		  
-		  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
-		
-		  
-		 
-		  
-		  List<VirtualProgresive> virtualProgresiveList = new ArrayList<VirtualProgresive>();   
-		  for(int i = 0; i < typeProgresive.size(); i++) {
-			  VirtualProgresive virtualProgresive = new VirtualProgresive();
-			  virtualProgresive.setIdTypeProgresive(typeProgresive.get(i).getTypeprogresiveId());
-			  virtualProgresive.setName(typeProgresive.get(i).getName());
-			  virtualProgresiveList.add(virtualProgresive);
-		  }
-	  
-	
-	  model.addObject("virtualProgresiveList",virtualProgresiveList);
-//	  model.addObject("muaji", new Date());
-	  model.setViewName("uploadProgres");
-	  return model;
-	 }
-	 
-	 @RequestMapping(value= { "/uploadProgres"}, method=RequestMethod.POST)
-	
-	 public ModelAndView uploadPList(@ModelAttribute VirtualProgresiveListFormViewModel progresiveForm) {
-
-		 
-		 ModelAndView model = new ModelAndView();
-	   
-	//	  List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
-	//	  List<VirtualProgresive> virtualProgresiveListT = new ArrayList<VirtualProgresive>();  
-	//	  for(int i = 0; i < typeProgresive.size(); i++) {
-	//		  VirtualProgresive virtualProgresive = new VirtualProgresive();
-	//		  virtualProgresive.setIdTypeProgresive(typeProgresive.get(i).getTypeprogresiveId());
-	//		  virtualProgresive.setName(typeProgresive.get(i).getName());
-	//		  virtualProgresive.setMountFakt(100);
-	//		  virtualProgresive.setMountPlan(200);
-	//		  virtualProgresiveListT.add(virtualProgresive);
-	//	  }
-		 
-		 
-		 
-		 
-		 List<VirtualProgresive> virtualProgresiveListT = progresiveForm.getVirtualProgresiveList();
-	  
-		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
-				Progresivet progresivet = new Progresivet();
-	
-				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
-				progresivet.setMount(virtualProgresiveListT.get(i).getMountFakt());
-				progresivet.setReferedDate(new Date());
-				progresiveServiceImpl.saveProgresivet(progresivet);  
-		  }
-	  
-	  
-//	  if(bindingResult.hasErrors()) {
-//		   model.setViewName("/uploadProgres");
-//		  } else {
-//			  
-//	  	   
-//		   model.setViewName("uploadProgres");
-//		  }
-//		  
-//		  return model;
-	  
-	  model.setViewName("uploadProgres");
-	  return model;
-	  
-	 }
-	 
-	 
-//	 @ModelAttribute("typeProgresivet")
-//	 public List<TypeProgresive> typeprogresivet() {
-//	     return typeProgresiveServiceImpl.findAll();
-//	 }
-//	 
-//	 @ModelAttribute("progresivetRow")
-//	 public List<Progresivet> progresivetRow() {
-//	     return progresiveServiceImpl.joinProgresive();
-//	 }
-	 
-	 
-//	 @ModelAttribute("progresiveHash")
-//	 public Map<Map<Integer,String>,Integer> progresiveHash() {
-//		 
-//		 List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
-//		  Map<Map<Integer,String>,Integer> progresiveHash = new HashMap();
-//		  for (int i = 0; i < typeProgresive.size(); i++) {
-//			  Map<Integer,String> hashTemp = new HashMap();
-//			  hashTemp.put(typeProgresive.get(i).getTypeprogresiveId(),  typeProgresive.get(i).getName());
-//			  progresiveHash.put(hashTemp, null);
-//		  }
-//	     return progresiveHash;
-//	 }
-	 
-	 
+     
 
 }

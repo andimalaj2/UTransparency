@@ -2,6 +2,8 @@ package com.utransparency.model;
 
 public class VirtualProgresive {
 	
+	private int idProgresive;
+	
 	private int idTypeProgresive;
 	
 	private String name;
@@ -40,6 +42,14 @@ public class VirtualProgresive {
 
 	public void setMountFakt(Integer mountFakt) {
 		this.mountFakt = mountFakt;
+	}
+
+	public int getIdProgresive() {
+		return idProgresive;
+	}
+
+	public void setIdProgresive(int idProgresive) {
+		this.idProgresive = idProgresive;
 	}
 	
 	

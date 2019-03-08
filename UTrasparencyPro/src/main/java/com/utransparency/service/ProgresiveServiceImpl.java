@@ -1,5 +1,6 @@
 package com.utransparency.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class ProgresiveServiceImpl {
 		
 		
 		return progresiveRepository.joinProgresive();
+		
+	}
+	
+	public List<Progresivet> filterProgresive(Date muaji){
+		
+		
+		return progresiveRepository.filterProgresive(muaji);
 		
 	}
 

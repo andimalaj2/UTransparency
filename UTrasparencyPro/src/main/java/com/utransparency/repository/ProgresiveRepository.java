@@ -1,5 +1,6 @@
 package com.utransparency.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,8 @@ public interface ProgresiveRepository extends JpaRepository<Progresivet, Integer
 			+ "p.type_mount FROM `progresivet` p right outer join type_progresive tp "
 			+ "ON p.typeprogresive_id = tp.typeprogresive_id", nativeQuery = true)
 	List<Progresivet> joinProgresive();
+	
+	@Query(value="select * from progresivet where refered_date = ?1", nativeQuery = true )
+	List<Progresivet> filterProgresive(Date muaji);
 
 }

@@ -20,7 +20,9 @@ public class TypeProgresiveServiceImpl implements TypeProgresiveService {
 		
 	}
 	
-	
+	public TypeProgresive findById(int idType) {
+		return typeProgresiveRepository.findById(idType);
+	}
 	
 
 }
