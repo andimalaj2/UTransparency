@@ -77,30 +77,88 @@ function myFunction() {
 				</div>
 			</div>
 		
+			<!-- Tabela e te ardhurave -->
 			<div class= "form-group row">
 			 			<table class = "table table-bordered table-sm">
 					    	<thead class="thead-light">
-					    		<th colspan="5" class="text-center">Te ardhurat per muajin </th>
+					    		<th colspan="5" class="text-center">Te ardhurat  </th>
 						        <tr>
 						            <th> - </th>
 						            <th> - </th>
-						            <th> Emertimi </th>						            
+						            <th style="width: 50%"> Emertimi </th>						            
 						            <th> Plan </th>
 						            <th> Fakt </th>
 						        </tr>
 					        </thead>
 						    
 						    <tbody>
-				        		<tr th:each="progresiveList,rowStat : ${progresiveForm.virtualProgresiveList}">
-				           			    <td><input hidden type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].idProgresive}"/>-</td>
-				           			    <td><input hidden type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].idTypeProgresive}"/>-</td>			           			    
+				        		<tr th:each="progresiveList,rowStat : ${progresiveForm.virtualProgresiveListInc}">
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveListInc[__${rowStat.index}__].idProgresive}"/>-</td>
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveListInc[__${rowStat.index}__].idTypeProgresive}"/>-</td>			           			    
 				           			    <td><span  th:text="${progresiveList.name}" ></span></td>
-							            <td><input type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].mountPlan}" /></td>
-							            <td><input type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].mountFakt}" /></td>
+							            <td><input type="number" th:field="*{virtualProgresiveListInc[__${rowStat.index}__].mountPlan}" /></td>
+							            <td><input type="number" th:field="*{virtualProgresiveListInc[__${rowStat.index}__].mountFakt}" /></td>
 						          </tr>
 						    </tbody>
 						</table>	
-		 	</div>		
+		 	</div>
+		 	
+		 	<!-- Tabela e Shpenzimeve te veta -->
+		 	<div class= "form-group row">
+			 			<table class = "table table-bordered table-sm">
+					    	<thead class="thead-light">
+					    		<th colspan="5" class="text-center">Shpenzimet nga te Ardhurat e Veta</th>
+						        <tr>
+						            <th> - </th>
+						            <th> - </th>
+						            <th style="width: 50%"> Emertimi </th>						            
+						            <th> Plan </th>
+						            <th> Fakt </th>
+						        </tr>
+					        </thead>
+						    
+						    <tbody>
+				        		<tr th:each="progresiveList,rowStat : ${progresiveForm.virtualProgresiveListExp}">
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveListExp[__${rowStat.index}__].idProgresive}"/>-</td>
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveListExp[__${rowStat.index}__].idTypeProgresive}"/>-</td>			           			    
+				           			    <td><span  th:text="${progresiveList.name}" ></span></td>
+							            <td><input type="number" th:field="*{virtualProgresiveListExp[__${rowStat.index}__].mountPlan}" /></td>
+							            <td><input type="number" th:field="*{virtualProgresiveListExp[__${rowStat.index}__].mountFakt}" /></td>
+						          </tr>
+						    </tbody>
+						</table>	
+		 	</div>
+		 	
+		 	<!-- Tabela e shpenzimeve nga buxheti -->
+		 	
+		 	<div class= "form-group row">
+			 			<table class = "table table-bordered table-sm">
+					    	<thead class="thead-light">
+					    		<th colspan="5" class="text-center">Shpenzimet nga granti i buxhetit te Shtetit </th>
+						        <tr>
+						            <th> - </th>
+						            <th> - </th>
+						            <th style="width: 50%"> Emertimi </th>						            
+						            <th> Plan </th>
+						            <th> Fakt </th>
+						        </tr>
+					        </thead>
+						    
+						    <tbody>
+				        		<tr th:each="progresiveList,rowStat : ${progresiveForm.virtualProgresiveListExpS}">
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveListExpS[__${rowStat.index}__].idProgresive}"/>-</td>
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveListExpS[__${rowStat.index}__].idTypeProgresive}"/>-</td>			           			    
+				           			    <td><span  th:text="${progresiveList.name}" ></span></td>
+							            <td><input type="number" th:field="*{virtualProgresiveListExpS[__${rowStat.index}__].mountPlan}" /></td>
+							            <td><input type="number" th:field="*{virtualProgresiveListExpS[__${rowStat.index}__].mountFakt}" /></td>
+						          </tr>
+						    </tbody>
+						</table>	
+		 	</div>
+		 	
+		 	
+		 	
+		 			
 		 </div>
 		 
 		 </form>

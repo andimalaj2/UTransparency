@@ -15,5 +15,8 @@ public interface TypeProgresiveRepository extends JpaRepository<TypeProgresive,I
 	
 	@Query(value="select * from type_progresive where typeprogresive_id = ?1", nativeQuery = true )
 	TypeProgresive findById(int idType);
+	
+	@Query(value="select * from type_progresive where sub_type = ?1", nativeQuery = true )
+	List<TypeProgresive> findBySubtype(int idType);
 
 }

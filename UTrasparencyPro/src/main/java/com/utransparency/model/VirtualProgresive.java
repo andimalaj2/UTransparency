@@ -16,6 +16,8 @@ public class VirtualProgresive {
 	
 	private Boolean confirm;
 	
+	private int subType;
+	
 	
 
 	public int getIdTypeProgresive() {
@@ -64,6 +66,14 @@ public class VirtualProgresive {
 
 	public void setConfirm(Boolean confirm) {
 		this.confirm = confirm;
+	}
+
+	public int getSubType() {
+		return subType;
+	}
+
+	public void setSubType(int subType) {
+		this.subType = subType;
 	}
 
 

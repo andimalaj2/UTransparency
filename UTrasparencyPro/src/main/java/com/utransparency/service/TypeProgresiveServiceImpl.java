@@ -24,5 +24,9 @@ public class TypeProgresiveServiceImpl implements TypeProgresiveService {
 		return typeProgresiveRepository.findById(idType);
 	}
 	
+	public List<TypeProgresive> findBySubtype(int idType) {
+		return typeProgresiveRepository.findBySubtype(idType);
+	}
+	
 
 }

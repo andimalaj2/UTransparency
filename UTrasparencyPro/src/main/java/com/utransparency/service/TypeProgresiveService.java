@@ -9,5 +9,9 @@ public interface TypeProgresiveService {
 	public List<TypeProgresive> findAll();
 	
 	public TypeProgresive findById(int idType);
+	
+	public List<TypeProgresive> findBySubtype(int idType) ;
+	
+	
 
 }

@@ -71,35 +71,82 @@ public class UserUtilsController {
     	User user = userService.findUserByEmail(userDetails.getUsername());
     	UserUniversity userUniversity = userUniversityService.findByUser(user.getId());
     	
-    	List<Progresivet> listProgresivet =  progresiveServiceImpl.filterProgresive(month,userUniversity.getUniversity_id());
-		List<VirtualProgresive> virtualProgresiveList = new ArrayList<VirtualProgresive>();
-		 VirtualProgresiveListFormViewModel progresiveForm = null;
-		if(listProgresivet.size()>0) {
-			  for(int i = 0; i < listProgresivet.size(); i++) {
+    	List<Progresivet> listProgresivetInc =  progresiveServiceImpl.filterProgresiveInc(month,userUniversity.getUniversity_id());
+    	List<Progresivet> listProgresivetExp =  progresiveServiceImpl.filterProgresiveExp(month,userUniversity.getUniversity_id());
+    	List<Progresivet> listProgresivetExpS =  progresiveServiceImpl.filterProgresiveExpS(month,userUniversity.getUniversity_id());
+		List<VirtualProgresive> virtualProgresiveListInc = new ArrayList<VirtualProgresive>();
+		List<VirtualProgresive> virtualProgresiveListExp = new ArrayList<VirtualProgresive>();
+		List<VirtualProgresive> virtualProgresiveListExpS = new ArrayList<VirtualProgresive>();
+		 VirtualProgresiveListFormViewModel progresiveForm = new VirtualProgresiveListFormViewModel();
+		if(listProgresivetInc.size()>0) {
+			  for(int i = 0; i < listProgresivetInc.size(); i++) {
 				  VirtualProgresive virtualProgresive = new VirtualProgresive();
-				  virtualProgresive.setIdProgresive(listProgresivet.get(i).getProgresivetID());
-				  virtualProgresive.setIdTypeProgresive(listProgresivet.get(i).getTypeProgresiveId());
-				  virtualProgresive.setName(typeProgresiveServiceImpl.findById(listProgresivet.get(i).getTypeProgresiveId()).getName());
-				  virtualProgresive.setMountPlan(listProgresivet.get(i).getMount());
-				  virtualProgresive.setMountFakt(listProgresivet.get(i).getMountFakt());
-				  virtualProgresive.setConfirm(listProgresivet.get(i).getConfirm());
-				  virtualProgresiveList.add(virtualProgresive);
+				  virtualProgresive.setIdProgresive(listProgresivetInc.get(i).getProgresivetID());
+				  virtualProgresive.setIdTypeProgresive(listProgresivetInc.get(i).getTypeProgresiveId());
+				  virtualProgresive.setName(typeProgresiveServiceImpl.findById(listProgresivetInc.get(i).getTypeProgresiveId()).getName());
+				  virtualProgresive.setMountPlan(listProgresivetInc.get(i).getMount());
+				  virtualProgresive.setMountFakt(listProgresivetInc.get(i).getMountFakt());
+				  virtualProgresive.setConfirm(listProgresivetInc.get(i).getConfirm());
+				  virtualProgresive.setSubType(typeProgresiveServiceImpl.findById(listProgresivetInc.get(i).getTypeProgresiveId()).getSubType());
+				  virtualProgresiveListInc.add(virtualProgresive);
+			  }
+			  for(int i = 0; i < listProgresivetExp.size(); i++) {
+				  VirtualProgresive virtualProgresive = new VirtualProgresive();
+				  virtualProgresive.setIdProgresive(listProgresivetExp.get(i).getProgresivetID());
+				  virtualProgresive.setIdTypeProgresive(listProgresivetExp.get(i).getTypeProgresiveId());
+				  virtualProgresive.setName(typeProgresiveServiceImpl.findById(listProgresivetExp.get(i).getTypeProgresiveId()).getName());
+				  virtualProgresive.setMountPlan(listProgresivetExp.get(i).getMount());
+				  virtualProgresive.setMountFakt(listProgresivetExp.get(i).getMountFakt());
+				  virtualProgresive.setConfirm(listProgresivetExp.get(i).getConfirm());
+				  virtualProgresive.setSubType(typeProgresiveServiceImpl.findById(listProgresivetExp.get(i).getTypeProgresiveId()).getSubType());
+				  virtualProgresiveListExp.add(virtualProgresive);
+			  }
+			  for(int i = 0; i < listProgresivetExpS.size(); i++) {
+				  VirtualProgresive virtualProgresive = new VirtualProgresive();
+				  virtualProgresive.setIdProgresive(listProgresivetExpS.get(i).getProgresivetID());
+				  virtualProgresive.setIdTypeProgresive(listProgresivetExpS.get(i).getTypeProgresiveId());
+				  virtualProgresive.setName(typeProgresiveServiceImpl.findById(listProgresivetExpS.get(i).getTypeProgresiveId()).getName());
+				  virtualProgresive.setMountPlan(listProgresivetExpS.get(i).getMount());
+				  virtualProgresive.setMountFakt(listProgresivetExpS.get(i).getMountFakt());
+				  virtualProgresive.setConfirm(listProgresivetExpS.get(i).getConfirm());
+				  virtualProgresive.setSubType(typeProgresiveServiceImpl.findById(listProgresivetExpS.get(i).getTypeProgresiveId()).getSubType());
+				  virtualProgresiveListExpS.add(virtualProgresive);
 			  }
 		  
-		   progresiveForm = new VirtualProgresiveListFormViewModel(virtualProgresiveList);
-		   progresiveForm.setConfirm(listProgresivet.get(0).getConfirm());
+		   progresiveForm.setVirtualProgresiveListInc(virtualProgresiveListInc);
+		   progresiveForm.setVirtualProgresiveListExp(virtualProgresiveListExp);
+		   progresiveForm.setVirtualProgresiveListExpS(virtualProgresiveListExpS);
+		   progresiveForm.setConfirm(listProgresivetInc.get(0).getConfirm());
 		  
 		}
 		else {
-			List<TypeProgresive> typeProgresive = typeProgresiveServiceImpl.findAll();
-			 virtualProgresiveList = new ArrayList<VirtualProgresive>();   
-			  for(int i = 0; i < typeProgresive.size(); i++) {
+			List<TypeProgresive> typeProgresiveInc = typeProgresiveServiceImpl.findBySubtype(1);
+			List<TypeProgresive> typeProgresiveExp = typeProgresiveServiceImpl.findBySubtype(2);
+			List<TypeProgresive> typeProgresiveExpS = typeProgresiveServiceImpl.findBySubtype(3);
+			  for(int i = 0; i < typeProgresiveInc.size(); i++) {
 				  VirtualProgresive virtualProgresive = new VirtualProgresive();
-				  virtualProgresive.setIdTypeProgresive(typeProgresive.get(i).getTypeprogresiveId());
-				  virtualProgresive.setName(typeProgresive.get(i).getName());
-				  virtualProgresiveList.add(virtualProgresive);
+				  virtualProgresive.setIdTypeProgresive(typeProgresiveInc.get(i).getTypeprogresiveId());
+				  virtualProgresive.setName(typeProgresiveInc.get(i).getName());
+				  virtualProgresive.setSubType(typeProgresiveInc.get(i).getSubType());
+				  virtualProgresiveListInc.add(virtualProgresive);
 			  }
-			  progresiveForm = new VirtualProgresiveListFormViewModel(virtualProgresiveList);
+			  for(int i = 0; i < typeProgresiveExp.size(); i++) {
+				  VirtualProgresive virtualProgresive = new VirtualProgresive();
+				  virtualProgresive.setIdTypeProgresive(typeProgresiveExp.get(i).getTypeprogresiveId());
+				  virtualProgresive.setName(typeProgresiveExp.get(i).getName());
+				  virtualProgresive.setSubType(typeProgresiveExp.get(i).getSubType());
+				  virtualProgresiveListExp.add(virtualProgresive);
+			  }
+			  for(int i = 0; i < typeProgresiveExpS.size(); i++) {
+				  VirtualProgresive virtualProgresive = new VirtualProgresive();
+				  virtualProgresive.setIdTypeProgresive(typeProgresiveExpS.get(i).getTypeprogresiveId());
+				  virtualProgresive.setName(typeProgresiveExpS.get(i).getName());
+				  virtualProgresive.setSubType(typeProgresiveExpS.get(i).getSubType());
+				  virtualProgresiveListExpS.add(virtualProgresive);
+			  }
+			   progresiveForm.setVirtualProgresiveListInc(virtualProgresiveListInc);
+			   progresiveForm.setVirtualProgresiveListExp(virtualProgresiveListExp);
+			   progresiveForm.setVirtualProgresiveListExpS(virtualProgresiveListExpS);
 			
 		}
 		  progresiveForm.setMonth(month);
@@ -117,15 +164,59 @@ public class UserUtilsController {
     	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     	User user = userService.findUserByEmail(userDetails.getUsername());
     	UserUniversity userUniversity = userUniversityService.findByUser(user.getId());
-    	List<VirtualProgresive> virtualProgresiveListT = progresiveForm.getVirtualProgresiveList(); 	  
-		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
+    	List<VirtualProgresive> virtualProgresiveListInc = progresiveForm.getVirtualProgresiveListInc(); 
+    	List<VirtualProgresive> virtualProgresiveListExp = progresiveForm.getVirtualProgresiveListExp();
+    	List<VirtualProgresive> virtualProgresiveListExpS = progresiveForm.getVirtualProgresiveListExpS();
+		  for(int i = 0; i < virtualProgresiveListInc.size(); i++) {
 				Progresivet progresivet = new Progresivet();
-				if(virtualProgresiveListT.get(i).getIdProgresive()!=0) {
-					progresivet.setProgresivetID(virtualProgresiveListT.get(i).getIdProgresive());
+				if(virtualProgresiveListInc.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListInc.get(i).getIdProgresive());
 				}				
-				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
-				progresivet.setMount(virtualProgresiveListT.get(i).getMountPlan());
-				progresivet.setMountFakt(virtualProgresiveListT.get(i).getMountFakt());
+				progresivet.setTypeProgresiveId(virtualProgresiveListInc.get(i).getIdTypeProgresive());
+				progresivet.setMount(virtualProgresiveListInc.get(i).getMountPlan());
+				progresivet.setMountFakt(virtualProgresiveListInc.get(i).getMountFakt());
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+				Date parsed = null;
+				try {
+					parsed = format.parse(progresiveForm.getMonth());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				parsed.setMonth(parsed.getMonth() + 1);
+				progresivet.setReferedDate(parsed);
+				progresivet.setUniversityId(userUniversity.getUniversity_id());
+				progresiveServiceImpl.saveProgresivet(progresivet);  
+		  }
+		  for(int i = 0; i < virtualProgresiveListExp.size(); i++) {
+				Progresivet progresivet = new Progresivet();
+				if(virtualProgresiveListExp.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListExp.get(i).getIdProgresive());
+				}				
+				progresivet.setTypeProgresiveId(virtualProgresiveListExp.get(i).getIdTypeProgresive());
+				progresivet.setMount(virtualProgresiveListExp.get(i).getMountPlan());
+				progresivet.setMountFakt(virtualProgresiveListExp.get(i).getMountFakt());
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+				Date parsed = null;
+				try {
+					parsed = format.parse(progresiveForm.getMonth());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				parsed.setMonth(parsed.getMonth() + 1);
+				progresivet.setReferedDate(parsed);
+				progresivet.setUniversityId(userUniversity.getUniversity_id());
+				progresiveServiceImpl.saveProgresivet(progresivet);  
+		  }
+		  for(int i = 0; i < virtualProgresiveListExpS.size(); i++) {
+				Progresivet progresivet = new Progresivet();
+				if(virtualProgresiveListInc.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListExpS.get(i).getIdProgresive());
+				}				
+				progresivet.setTypeProgresiveId(virtualProgresiveListExpS.get(i).getIdTypeProgresive());
+				progresivet.setMount(virtualProgresiveListExpS.get(i).getMountPlan());
+				progresivet.setMountFakt(virtualProgresiveListExpS.get(i).getMountFakt());
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
 				Date parsed = null;
 				try {
@@ -140,7 +231,7 @@ public class UserUtilsController {
 				progresiveServiceImpl.saveProgresivet(progresivet);  
 		  }
 		  
-		  model.addAttribute("virtualProgresiveList", virtualProgresiveListT);
+		  model.addAttribute("virtualProgresiveList", virtualProgresiveListInc);
 
         return "redirect:/dateProgres?month="+progresiveForm.getMonth();
     }
@@ -152,15 +243,17 @@ public class UserUtilsController {
     	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
     	User user = userService.findUserByEmail(userDetails.getUsername());
     	UserUniversity userUniversity = userUniversityService.findByUser(user.getId());
-    	List<VirtualProgresive> virtualProgresiveListT = progresiveForm.getVirtualProgresiveList(); 	  
-		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
+    	List<VirtualProgresive> virtualProgresiveListInc = progresiveForm.getVirtualProgresiveListInc(); 
+    	List<VirtualProgresive> virtualProgresiveListExp = progresiveForm.getVirtualProgresiveListExp();
+    	List<VirtualProgresive> virtualProgresiveListExpS = progresiveForm.getVirtualProgresiveListExpS();
+		  for(int i = 0; i < virtualProgresiveListInc.size(); i++) {
 				Progresivet progresivet = new Progresivet();
-				if(virtualProgresiveListT.get(i).getIdProgresive()!=0) {
-					progresivet.setProgresivetID(virtualProgresiveListT.get(i).getIdProgresive());
-				}
-				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
-				progresivet.setMount(virtualProgresiveListT.get(i).getMountPlan());
-				progresivet.setMountFakt(virtualProgresiveListT.get(i).getMountFakt());
+				if(virtualProgresiveListInc.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListInc.get(i).getIdProgresive());
+				}				
+				progresivet.setTypeProgresiveId(virtualProgresiveListInc.get(i).getIdTypeProgresive());
+				progresivet.setMount(virtualProgresiveListInc.get(i).getMountPlan());
+				progresivet.setMountFakt(virtualProgresiveListInc.get(i).getMountFakt());
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
 				Date parsed = null;
 				try {
@@ -171,13 +264,56 @@ public class UserUtilsController {
 				}
 				parsed.setMonth(parsed.getMonth() + 1);
 				progresivet.setReferedDate(parsed);
-				progresivet.setConfirm(true);
 				progresivet.setUniversityId(userUniversity.getUniversity_id());
+				progresivet.setConfirm(true);
+				progresiveServiceImpl.saveProgresivet(progresivet);  
+		  }
+		  for(int i = 0; i < virtualProgresiveListExp.size(); i++) {
+				Progresivet progresivet = new Progresivet();
+				if(virtualProgresiveListExp.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListExp.get(i).getIdProgresive());
+				}				
+				progresivet.setTypeProgresiveId(virtualProgresiveListExp.get(i).getIdTypeProgresive());
+				progresivet.setMount(virtualProgresiveListExp.get(i).getMountPlan());
+				progresivet.setMountFakt(virtualProgresiveListExp.get(i).getMountFakt());
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+				Date parsed = null;
+				try {
+					parsed = format.parse(progresiveForm.getMonth());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				parsed.setMonth(parsed.getMonth() + 1);
+				progresivet.setReferedDate(parsed);
+				progresivet.setUniversityId(userUniversity.getUniversity_id());
+				progresivet.setConfirm(true);
+				progresiveServiceImpl.saveProgresivet(progresivet);  
+		  }
+		  for(int i = 0; i < virtualProgresiveListExpS.size(); i++) {
+				Progresivet progresivet = new Progresivet();
+				if(virtualProgresiveListInc.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListExpS.get(i).getIdProgresive());
+				}				
+				progresivet.setTypeProgresiveId(virtualProgresiveListExpS.get(i).getIdTypeProgresive());
+				progresivet.setMount(virtualProgresiveListExpS.get(i).getMountPlan());
+				progresivet.setMountFakt(virtualProgresiveListExpS.get(i).getMountFakt());
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+				Date parsed = null;
+				try {
+					parsed = format.parse(progresiveForm.getMonth());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				parsed.setMonth(parsed.getMonth() + 1);
+				progresivet.setReferedDate(parsed);
+				progresivet.setUniversityId(userUniversity.getUniversity_id());
+				progresivet.setConfirm(true);
 				progresiveServiceImpl.saveProgresivet(progresivet);  
 		  }
 		  
-
-		  model.addAttribute("virtualProgresiveList", virtualProgresiveListT);
+		  model.addAttribute("virtualProgresiveList", virtualProgresiveListInc);
 
 		  return "redirect:/dateProgres?month="+progresiveForm.getMonth();
     }

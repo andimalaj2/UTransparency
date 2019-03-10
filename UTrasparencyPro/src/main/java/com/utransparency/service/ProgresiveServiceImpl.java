@@ -35,5 +35,26 @@ public class ProgresiveServiceImpl {
 		return progresiveRepository.filterProgresive(muaji,universityId);
 		
 	}
+	
+	public List<Progresivet> filterProgresiveInc(String muaji, int universityId){
+		
+		
+		return progresiveRepository.filterProgresiveInc(muaji,universityId);
+		
+	}
+	
+	public List<Progresivet> filterProgresiveExp(String muaji, int universityId){
+		
+		
+		return progresiveRepository.filterProgresiveExp(muaji,universityId);
+		
+	}
+	
+	public List<Progresivet> filterProgresiveExpS(String muaji, int universityId){
+		
+		
+		return progresiveRepository.filterProgresiveExpS(muaji,universityId);
+		
+	}
 
 }

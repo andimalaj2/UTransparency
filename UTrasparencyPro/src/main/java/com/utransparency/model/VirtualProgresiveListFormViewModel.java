@@ -8,6 +8,12 @@ public class VirtualProgresiveListFormViewModel {
 	
 	private List<VirtualProgresive> virtualProgresiveList = new ArrayList<VirtualProgresive>();
 	
+	private List<VirtualProgresive> virtualProgresiveListInc = new ArrayList<VirtualProgresive>();
+	
+	private List<VirtualProgresive> virtualProgresiveListExp = new ArrayList<VirtualProgresive>();
+	
+	private List<VirtualProgresive> virtualProgresiveListExpS = new ArrayList<VirtualProgresive>();
+	
 	private String month;
 	
 	private Boolean confirm;
@@ -51,6 +57,30 @@ public class VirtualProgresiveListFormViewModel {
 
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+
+	public List<VirtualProgresive> getVirtualProgresiveListInc() {
+		return virtualProgresiveListInc;
+	}
+
+	public void setVirtualProgresiveListInc(List<VirtualProgresive> virtualProgresiveListInc) {
+		this.virtualProgresiveListInc = virtualProgresiveListInc;
+	}
+
+	public List<VirtualProgresive> getVirtualProgresiveListExp() {
+		return virtualProgresiveListExp;
+	}
+
+	public void setVirtualProgresiveListExp(List<VirtualProgresive> virtualProgresiveListExp) {
+		this.virtualProgresiveListExp = virtualProgresiveListExp;
+	}
+
+	public List<VirtualProgresive> getVirtualProgresiveListExpS() {
+		return virtualProgresiveListExpS;
+	}
+
+	public void setVirtualProgresiveListExpS(List<VirtualProgresive> virtualProgresiveListExpS) {
+		this.virtualProgresiveListExpS = virtualProgresiveListExpS;
 	}
 
 }
