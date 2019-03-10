@@ -1,5 +1,7 @@
 package com.utransparency.model;
 
+import java.util.Date;
+
 public class VirtualProgresive {
 	
 	private int idProgresive;
@@ -8,9 +10,11 @@ public class VirtualProgresive {
 	
 	private String name;
 	
-	private Integer mountPlan;
+	private float mountPlan;
 	
-	private Integer mountFakt;
+	private float mountFakt;
+	
+	
 
 	public int getIdTypeProgresive() {
 		return idTypeProgresive;
@@ -28,19 +32,19 @@ public class VirtualProgresive {
 		this.name = name;
 	}
 
-	public Integer getMountPlan() {
+	public float getMountPlan() {
 		return mountPlan;
 	}
 
-	public void setMountPlan(Integer mountPlan) {
+	public void setMountPlan(float mountPlan) {
 		this.mountPlan = mountPlan;
 	}
 
-	public Integer getMountFakt() {
+	public float getMountFakt() {
 		return mountFakt;
 	}
 
-	public void setMountFakt(Integer mountFakt) {
+	public void setMountFakt(float mountFakt) {
 		this.mountFakt = mountFakt;
 	}
 
@@ -51,6 +55,8 @@ public class VirtualProgresive {
 	public void setIdProgresive(int idProgresive) {
 		this.idProgresive = idProgresive;
 	}
+
+
 	
 	
 	

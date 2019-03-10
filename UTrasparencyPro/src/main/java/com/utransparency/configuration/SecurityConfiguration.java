@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
    .antMatchers("/uploadProgres").hasAnyAuthority("ADMIN,ADMIN_UNIV")
    .antMatchers("/allProgres").hasAnyAuthority("ADMIN,ADMIN_UNIV")
    .antMatchers("/editProgres").hasAnyAuthority("ADMIN,ADMIN_UNIV")
+   .antMatchers("/dateProgres/**").hasAnyAuthority("ADMIN,ADMIN_UNIV")
    .antMatchers("/home").hasAnyAuthority("ADMIN,ADMIN_UNIV").anyRequest()
    //.antMatchers("/home/**").hasAuthority("ADMIN").anyRequest()
    .authenticated().and().csrf().disable()

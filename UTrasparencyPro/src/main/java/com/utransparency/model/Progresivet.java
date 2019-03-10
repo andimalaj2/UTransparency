@@ -20,6 +20,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name="progresivet")
 public class Progresivet {
@@ -34,6 +36,10 @@ public class Progresivet {
 	private float mount;
 	
 	
+
+
+	@Column(name = "mount_fakt")
+	private float mountFakt;
 	
 	
 	@Column(name = "refered_date")
@@ -121,15 +127,12 @@ public class Progresivet {
 
 
 	
-//	public Progresivet setTypeProgresive(TypeProgresive typeProgresive) {
-//		this.typeprogresive = typeProgresive;
-//		
-//		return this;
-//	}
-	
-//	public void setTypeProgresive(TypeProgresive typeProgresive) {
-//		
-//		this.typeprogresive = typeProgresive;
-//	}
+	public float getMountFakt() {
+		return mountFakt;
+	}
+
+	public void setMountFakt(float mountFakt) {
+		this.mountFakt = mountFakt;
+	}
 
 }

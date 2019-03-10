@@ -18,7 +18,7 @@ public interface ProgresiveRepository extends JpaRepository<Progresivet, Integer
 			+ "ON p.typeprogresive_id = tp.typeprogresive_id", nativeQuery = true)
 	List<Progresivet> joinProgresive();
 	
-	@Query(value="select * from progresivet where refered_date = ?1", nativeQuery = true )
-	List<Progresivet> filterProgresive(Date muaji);
+	@Query(value="SELECT * FROM `progresivet` where date_format(refered_date,\"%Y-%m\") = ?1 and university_id = ?2", nativeQuery = true )
+	List<Progresivet> filterProgresive(String muaji, int universityId);
 
 }

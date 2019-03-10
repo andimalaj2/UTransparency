@@ -29,10 +29,10 @@ public class ProgresiveServiceImpl {
 		
 	}
 	
-	public List<Progresivet> filterProgresive(Date muaji){
+	public List<Progresivet> filterProgresive(String muaji, int universityId){
 		
 		
-		return progresiveRepository.filterProgresive(muaji);
+		return progresiveRepository.filterProgresive(muaji,universityId);
 		
 	}
 
