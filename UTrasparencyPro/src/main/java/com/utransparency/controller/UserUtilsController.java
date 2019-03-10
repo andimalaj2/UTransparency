@@ -82,9 +82,12 @@ public class UserUtilsController {
 				  virtualProgresive.setName(typeProgresiveServiceImpl.findById(listProgresivet.get(i).getTypeProgresiveId()).getName());
 				  virtualProgresive.setMountPlan(listProgresivet.get(i).getMount());
 				  virtualProgresive.setMountFakt(listProgresivet.get(i).getMountFakt());
+				  virtualProgresive.setConfirm(listProgresivet.get(i).getConfirm());
 				  virtualProgresiveList.add(virtualProgresive);
 			  }
+		  
 		   progresiveForm = new VirtualProgresiveListFormViewModel(virtualProgresiveList);
+		   progresiveForm.setConfirm(listProgresivet.get(0).getConfirm());
 		  
 		}
 		else {
@@ -117,6 +120,9 @@ public class UserUtilsController {
     	List<VirtualProgresive> virtualProgresiveListT = progresiveForm.getVirtualProgresiveList(); 	  
 		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
 				Progresivet progresivet = new Progresivet();
+				if(virtualProgresiveListT.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListT.get(i).getIdProgresive());
+				}				
 				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
 				progresivet.setMount(virtualProgresiveListT.get(i).getMountPlan());
 				progresivet.setMountFakt(virtualProgresiveListT.get(i).getMountFakt());
@@ -134,7 +140,6 @@ public class UserUtilsController {
 				progresiveServiceImpl.saveProgresivet(progresivet);  
 		  }
 		  
-
 		  model.addAttribute("virtualProgresiveList", virtualProgresiveListT);
 
         return "redirect:/dateProgres?month="+progresiveForm.getMonth();
@@ -150,6 +155,9 @@ public class UserUtilsController {
     	List<VirtualProgresive> virtualProgresiveListT = progresiveForm.getVirtualProgresiveList(); 	  
 		  for(int i = 0; i < virtualProgresiveListT.size(); i++) {
 				Progresivet progresivet = new Progresivet();
+				if(virtualProgresiveListT.get(i).getIdProgresive()!=0) {
+					progresivet.setProgresivetID(virtualProgresiveListT.get(i).getIdProgresive());
+				}
 				progresivet.setTypeProgresiveId(virtualProgresiveListT.get(i).getIdTypeProgresive());
 				progresivet.setMount(virtualProgresiveListT.get(i).getMountPlan());
 				progresivet.setMountFakt(virtualProgresiveListT.get(i).getMountFakt());

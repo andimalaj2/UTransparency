@@ -14,6 +14,8 @@ public class VirtualProgresive {
 	
 	private float mountFakt;
 	
+	private Boolean confirm;
+	
 	
 
 	public int getIdTypeProgresive() {
@@ -54,6 +56,14 @@ public class VirtualProgresive {
 
 	public void setIdProgresive(int idProgresive) {
 		this.idProgresive = idProgresive;
+	}
+
+	public Boolean getConfirm() {
+		return confirm;
+	}
+
+	public void setConfirm(Boolean confirm) {
+		this.confirm = confirm;
 	}
 
 

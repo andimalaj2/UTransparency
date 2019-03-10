@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>	
+	
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/sidebar.css"/>
+	
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">    -->
+
+<!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!-- <script src="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+<script>
+function myFunction() {
+  alert("Pas publikimit te dhenat nuk mund te modifikohen. Jeni i sigurte?");
+}
+</script>
+
+	
+</head>
+
+<body>
+
+	<header>
+	
+		<div th:replace="/fragments/header :: header_template"></div>
+	
+	</header>
+
+	<div class="container-fluid">
+
+		
+		<div class="row">
+				<div class="col-md pl-0" >
+					<div th:replace="/fragments/admin_sidebar :: admin_sidebar"  ></div>
+				</div>
+				<div class="col-md my-3">
+					<p> Faqja e ngarkimit te progresiveve </p>
+				</div>
+							
+	 	</div>
+
+	</div>
+	
+	<main class="page-content">
+	
+		<form class="form-horizontal" role="form" method="POST" th:action="@{/edit}" th:object="${progresiveForm}">
+	
+		<div class ="container-fluid">
+		
+			<div class="form-group row">
+			
+			  <label for="muaji" class="col-2 col-form-label"><u>Perzgjidh Muajin</u></label>
+			  <div class="col-3">
+			    <input class="form-control"  th:field = "${progresiveForm.month}" type="month"   id="muaji" onchange="javascript:location.href = '/dateProgres?month=' + this.value;" required autofocus/>			    
+			  </div>
+			  
+		  
+			</div>
+			
+			<div class="form-group row">
+				<div class="col-1" >
+					<button type="submit" class="btn btn-primary float-right" name = "action" value="save" th:disabled = "${progresiveForm.confirm !=null}">Ruaj</button>
+				</div>
+				<div class="col-1" >
+					<button type="submit" class="btn btn-primary float-right" name = "action" value="publiko" th:disabled = "${progresiveForm.confirm !=null}"  onclick="myFunction()">Publiko</button>			
+				</div>
+			</div>
+		
+			<div class= "form-group row">
+			 			<table class = "table table-bordered table-sm">
+					    	<thead class="thead-light">
+					    		<th colspan="5" class="text-center">Te ardhurat per muajin </th>
+						        <tr>
+						            <th> - </th>
+						            <th> - </th>
+						            <th> Emertimi </th>						            
+						            <th> Plan </th>
+						            <th> Fakt </th>
+						        </tr>
+					        </thead>
+						    
+						    <tbody>
+				        		<tr th:each="progresiveList,rowStat : ${progresiveForm.virtualProgresiveList}">
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].idProgresive}"/>-</td>
+				           			    <td><input hidden type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].idTypeProgresive}"/>-</td>			           			    
+				           			    <td><span  th:text="${progresiveList.name}" ></span></td>
+							            <td><input type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].mountPlan}" /></td>
+							            <td><input type="number" th:field="*{virtualProgresiveList[__${rowStat.index}__].mountFakt}" /></td>
+						          </tr>
+						    </tbody>
+						</table>	
+		 	</div>		
+		 </div>
+		 
+		 </form>
+		 
+	 </main>
+		 
+	
+	<footer>
+		
+		 <div th:replace="/fragments/footer :: footer_template"></div>
+	
+	</footer>
+	
+	 
+	
+
+</body>
+
+</html>

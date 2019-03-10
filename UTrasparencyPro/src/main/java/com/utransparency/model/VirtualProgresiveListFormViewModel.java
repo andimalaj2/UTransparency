@@ -10,6 +10,10 @@ public class VirtualProgresiveListFormViewModel {
 	
 	private String month;
 	
+	private Boolean confirm;
+	
+	private String msg;
+	
 	public VirtualProgresiveListFormViewModel() {
 	}
 	
@@ -31,6 +35,22 @@ public class VirtualProgresiveListFormViewModel {
 
 	public void setMonth(String month) {
 		this.month = month;
+	}
+
+	public Boolean getConfirm() {
+		return confirm;
+	}
+
+	public void setConfirm(Boolean confirm) {
+		this.confirm = confirm;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
 }
