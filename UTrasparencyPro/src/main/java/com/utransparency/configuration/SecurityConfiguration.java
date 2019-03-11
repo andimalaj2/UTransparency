@@ -45,6 +45,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
    .antMatchers("/admin.html").permitAll()
    .antMatchers("/admin").permitAll()
    .antMatchers("/css/").permitAll()
+   .antMatchers("/images/**").permitAll()
+   .antMatchers("/public_progres/**").permitAll()
    .antMatchers("/signup").hasAuthority("ADMIN")
    .antMatchers("/signupUniv").hasAuthority("ADMIN")
    .antMatchers("/uploadProgres").hasAnyAuthority("ADMIN,ADMIN_UNIV")
